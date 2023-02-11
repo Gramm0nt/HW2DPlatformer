@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+
 public class PlayerMovement : MonoBehaviour
 {
     private const string Horizontal = "Horizontal";
@@ -24,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckGround();
+        SetJumpState();
     }
 
     private void Update()
@@ -54,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         _rb2d.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
     }
 
-    private void CheckGround()
+    private void SetJumpState()
     {
         _colliders = Physics2D.OverlapCircleAll(transform.position, _radiusCheckGroundColliders);
         IsGrounded = _colliders.Length > 1;
